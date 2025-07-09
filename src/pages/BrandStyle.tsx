@@ -142,15 +142,15 @@ const BrandStyle = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="voice">Brand Voice</TabsTrigger>
-          <TabsTrigger value="visual">Visual Identity</TabsTrigger>
-          <TabsTrigger value="guidelines">Guidelines</TabsTrigger>
-          <TabsTrigger value="examples">Examples</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+          <TabsTrigger value="voice" className="text-xs sm:text-sm">Brand Voice</TabsTrigger>
+          <TabsTrigger value="visual" className="text-xs sm:text-sm">Visual Identity</TabsTrigger>
+          <TabsTrigger value="guidelines" className="text-xs sm:text-sm">Guidelines</TabsTrigger>
+          <TabsTrigger value="examples" className="text-xs sm:text-sm">Examples</TabsTrigger>
         </TabsList>
 
         <TabsContent value="voice" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             {/* Brand Identity */}
             <Card className="border-0 shadow-card">
               <CardHeader>
@@ -167,6 +167,7 @@ const BrandStyle = () => {
                     value={brandName}
                     onChange={(e) => setBrandName(e.target.value)}
                     placeholder="Enter your brand name"
+                    className="mt-1"
                   />
                 </div>
 
@@ -178,6 +179,7 @@ const BrandStyle = () => {
                     onChange={(e) => setBrandDescription(e.target.value)}
                     placeholder="Describe what your brand does and stands for..."
                     rows={3}
+                    className="mt-1"
                   />
                 </div>
 
@@ -189,6 +191,7 @@ const BrandStyle = () => {
                     onChange={(e) => setTargetAudience(e.target.value)}
                     placeholder="Who is your ideal customer? Demographics, interests, pain points..."
                     rows={3}
+                    className="mt-1"
                   />
                 </div>
 
@@ -199,6 +202,7 @@ const BrandStyle = () => {
                     value={keyValues}
                     onChange={(e) => setKeyValues(e.target.value)}
                     placeholder="Innovation, Trust, Quality, Customer-First..."
+                    className="mt-1"
                   />
                 </div>
               </CardContent>
@@ -212,12 +216,12 @@ const BrandStyle = () => {
                   Brand Voice
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3">
                 <div className="grid grid-cols-1 gap-3">
                   {brandVoiceOptions.map((voice) => (
                     <div
                       key={voice.id}
-                      className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                      className={`p-3 sm:p-4 rounded-lg border cursor-pointer transition-all ${
                         selectedVoice.id === voice.id
                           ? "border-primary bg-primary/5"
                           : "border-border hover:border-primary/50"
@@ -225,14 +229,14 @@ const BrandStyle = () => {
                       onClick={() => setSelectedVoice(voice)}
                     >
                       <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="font-medium">{voice.name}</h3>
-                          <p className="text-sm text-muted-foreground mt-1">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-medium text-sm sm:text-base">{voice.name}</h3>
+                          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                             {voice.description}
                           </p>
                         </div>
                         {selectedVoice.id === voice.id && (
-                          <div className="w-2 h-2 rounded-full bg-primary"></div>
+                          <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 mt-1"></div>
                         )}
                       </div>
                     </div>
@@ -254,11 +258,11 @@ const BrandStyle = () => {
               </p>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {toneVariations.map((tone) => (
                   <div
                     key={tone.id}
-                    className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                    className={`p-3 sm:p-4 rounded-lg border cursor-pointer transition-all ${
                       selectedTones.includes(tone.id)
                         ? "border-primary bg-primary/5"
                         : "border-border hover:border-primary/50"
@@ -266,7 +270,7 @@ const BrandStyle = () => {
                     onClick={() => toggleTone(tone.id)}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-medium">{tone.name}</h3>
+                      <h3 className="font-medium text-sm sm:text-base">{tone.name}</h3>
                       <Switch 
                         checked={selectedTones.includes(tone.id)} 
                         onCheckedChange={() => toggleTone(tone.id)}
@@ -293,6 +297,7 @@ const BrandStyle = () => {
                   onChange={(e) => setCustomKeywords(e.target.value)}
                   placeholder="List words and phrases that represent your brand (comma-separated)..."
                   rows={3}
+                  className="mt-1"
                 />
               </div>
               <Button className="w-full">
@@ -304,7 +309,7 @@ const BrandStyle = () => {
         </TabsContent>
 
         <TabsContent value="visual" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             {/* Color Palette */}
             <Card className="border-0 shadow-card">
               <CardHeader>
@@ -317,16 +322,16 @@ const BrandStyle = () => {
                 {colorPalettes.map((palette) => (
                   <div key={palette.id} className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-medium">{palette.name}</h3>
-                      <Button variant="ghost" size="sm">
+                      <h3 className="font-medium text-sm sm:text-base">{palette.name}</h3>
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                         <Edit className="w-4 h-4" />
                       </Button>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 overflow-x-auto pb-2">
                       {palette.colors.map((color, index) => (
-                        <div key={index} className="text-center">
+                        <div key={index} className="text-center flex-shrink-0">
                           <div 
-                            className="w-12 h-12 rounded-lg border"
+                            className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg border"
                             style={{ backgroundColor: color }}
                           ></div>
                           <p className="text-xs mt-1 font-mono">{color}</p>
@@ -356,15 +361,15 @@ const BrandStyle = () => {
                 {fontPairings.map((font) => (
                   <div
                     key={font.id}
-                    className="p-4 rounded-lg border hover:border-primary/50 cursor-pointer transition-all"
+                    className="p-3 sm:p-4 rounded-lg border hover:border-primary/50 cursor-pointer transition-all"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <h3 className="font-medium">{font.name}</h3>
-                        <Badge variant="outline">{font.style}</Badge>
+                        <h3 className="font-medium text-sm sm:text-base">{font.name}</h3>
+                        <Badge>{font.style}</Badge>
                       </div>
                       <div className="space-y-1">
-                        <div className="text-lg font-semibold" style={{ fontFamily: font.heading }}>
+                        <div className="text-base sm:text-lg font-semibold" style={{ fontFamily: font.heading }}>
                           Heading Font: {font.heading}
                         </div>
                         <div className="text-sm" style={{ fontFamily: font.body }}>
@@ -391,25 +396,25 @@ const BrandStyle = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 cursor-pointer transition-colors">
-                  <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-                  <p className="text-sm font-medium">Primary Logo</p>
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                <div className="border-2 border-dashed border-border rounded-lg p-4 sm:p-6 text-center hover:border-primary/50 cursor-pointer transition-colors">
+                  <Upload className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-2 text-muted-foreground" />
+                  <p className="text-xs sm:text-sm font-medium">Primary Logo</p>
                   <p className="text-xs text-muted-foreground">PNG, SVG</p>
                 </div>
-                <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 cursor-pointer transition-colors">
-                  <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-                  <p className="text-sm font-medium">Secondary Logo</p>
+                <div className="border-2 border-dashed border-border rounded-lg p-4 sm:p-6 text-center hover:border-primary/50 cursor-pointer transition-colors">
+                  <Upload className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-2 text-muted-foreground" />
+                  <p className="text-xs sm:text-sm font-medium">Secondary Logo</p>
                   <p className="text-xs text-muted-foreground">PNG, SVG</p>
                 </div>
-                <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 cursor-pointer transition-colors">
-                  <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-                  <p className="text-sm font-medium">Brand Mark</p>
+                <div className="border-2 border-dashed border-border rounded-lg p-4 sm:p-6 text-center hover:border-primary/50 cursor-pointer transition-colors">
+                  <Upload className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-2 text-muted-foreground" />
+                  <p className="text-xs sm:text-sm font-medium">Brand Mark</p>
                   <p className="text-xs text-muted-foreground">PNG, SVG</p>
                 </div>
-                <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 cursor-pointer transition-colors">
-                  <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
-                  <p className="text-sm font-medium">Favicon</p>
+                <div className="border-2 border-dashed border-border rounded-lg p-4 sm:p-6 text-center hover:border-primary/50 cursor-pointer transition-colors">
+                  <Upload className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-2 text-muted-foreground" />
+                  <p className="text-xs sm:text-sm font-medium">Favicon</p>
                   <p className="text-xs text-muted-foreground">ICO, PNG</p>
                 </div>
               </div>
@@ -418,7 +423,7 @@ const BrandStyle = () => {
         </TabsContent>
 
         <TabsContent value="guidelines" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             {/* Do's */}
             <Card className="border-0 shadow-card">
               <CardHeader>
@@ -463,11 +468,11 @@ const BrandStyle = () => {
               <CardTitle>Content Guidelines</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Sentence Structure</Label>
                   <Select>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1">
                       <SelectValue placeholder="Preferred structure" />
                     </SelectTrigger>
                     <SelectContent>
@@ -480,7 +485,7 @@ const BrandStyle = () => {
                 <div className="space-y-2">
                   <Label>Emoji Usage</Label>
                   <Select>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1">
                       <SelectValue placeholder="Emoji preference" />
                     </SelectTrigger>
                     <SelectContent>
@@ -505,48 +510,39 @@ const BrandStyle = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Eye className="w-5 h-5" />
-                Before & After Examples
+                Content Examples
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                See how your brand voice transforms generic content
+                See how your brand voice transforms content
               </p>
             </CardHeader>
-            <CardContent className="space-y-6">
-              {contentExamples.map((example, index) => (
-                <div key={index} className="space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Badge variant="outline">{example.type}</Badge>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label className="text-sm text-muted-foreground">Before (Generic)</Label>
-                      <div className="p-3 bg-muted/50 rounded-lg text-sm">
-                        {example.original}
+            <CardContent>
+              <div className="space-y-6">
+                {contentExamples.map((example, index) => (
+                  <div key={index} className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Badge>{example.type}</Badge>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                      <div>
+                        <Label className="text-sm font-medium text-muted-foreground">Before (Generic)</Label>
+                        <div className="mt-1 p-3 bg-muted/50 rounded-lg text-sm">
+                          {example.original}
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-sm font-medium text-green-600">After (Brand Voice)</Label>
+                        <div className="mt-1 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg text-sm border border-green-200 dark:border-green-800">
+                          {example.branded}
+                        </div>
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      <Label className="text-sm text-primary">After (Branded)</Label>
-                      <div className="p-3 bg-primary/5 border border-primary/20 rounded-lg text-sm">
-                        {example.branded}
-                      </div>
-                    </div>
+                    {index < contentExamples.length - 1 && <Separator />}
                   </div>
-                  {index < contentExamples.length - 1 && <Separator />}
-                </div>
-              ))}
+                ))}
+              </div>
             </CardContent>
           </Card>
-
-          <div className="flex gap-4">
-            <Button className="flex-1">
-              <Download className="w-4 h-4 mr-2" />
-              Export Style Guide
-            </Button>
-            <Button variant="outline" className="flex-1">
-              <Copy className="w-4 h-4 mr-2" />
-              Share with Team
-            </Button>
-          </div>
         </TabsContent>
       </Tabs>
     </div>

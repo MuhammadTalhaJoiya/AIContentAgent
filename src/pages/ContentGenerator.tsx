@@ -180,9 +180,9 @@ const ContentGenerator = () => {
         </TabsList>
 
         <TabsContent value="generate" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
             {/* Configuration Panel */}
-            <Card className="lg:col-span-1 border-0 shadow-card">
+            <Card className="lg:col-span-4 xl:col-span-3 border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Settings className="w-5 h-5" />
@@ -208,15 +208,15 @@ const ContentGenerator = () => {
                           <div className={`w-8 h-8 rounded-lg ${type.color} flex items-center justify-center`}>
                             <type.icon className="w-4 h-4 text-white" />
                           </div>
-                          <div className="flex-1">
+                          <div className="flex-1 min-w-0">
                             <div className="font-medium text-sm">{type.name}</div>
-                            <div className="text-xs text-muted-foreground">{type.description}</div>
-                            <div className="flex gap-2 mt-1">
-                              <Badge variant="outline" className="text-xs">
+                            <div className="text-xs text-muted-foreground truncate">{type.description}</div>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              <Badge variant="outline" className="text-xs px-1 py-0">
                                 <Clock className="w-3 h-3 mr-1" />
                                 {type.estimatedTime}
                               </Badge>
-                              <Badge variant="outline" className="text-xs">
+                              <Badge variant="outline" className="text-xs px-1 py-0">
                                 {type.wordRange}
                               </Badge>
                             </div>
@@ -238,13 +238,14 @@ const ContentGenerator = () => {
                       placeholder="What do you want to write about?"
                       value={topic}
                       onChange={(e) => setTopic(e.target.value)}
+                      className="mt-1"
                     />
                   </div>
 
                   <div>
                     <Label>Tone & Style</Label>
                     <Select value={tone} onValueChange={setTone}>
-                      <SelectTrigger>
+                      <SelectTrigger className="mt-1">
                         <SelectValue placeholder="Select tone" />
                       </SelectTrigger>
                       <SelectContent>
@@ -260,7 +261,7 @@ const ContentGenerator = () => {
                   <div>
                     <Label>Target Audience</Label>
                     <Select value={audience} onValueChange={setAudience}>
-                      <SelectTrigger>
+                      <SelectTrigger className="mt-1">
                         <SelectValue placeholder="Select audience" />
                       </SelectTrigger>
                       <SelectContent>
@@ -280,6 +281,7 @@ const ContentGenerator = () => {
                       placeholder="keyword1, keyword2, keyword3"
                       value={keywords}
                       onChange={(e) => setKeywords(e.target.value)}
+                      className="mt-1"
                     />
                   </div>
                 </div>
@@ -345,27 +347,29 @@ const ContentGenerator = () => {
             </Card>
 
             {/* Content Output */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-8 xl:col-span-9 space-y-4 lg:space-y-6">
               <Card className="border-0 shadow-card">
                 <CardHeader>
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <CardTitle className="flex items-center gap-2">
                       <Eye className="w-5 h-5" />
                       Generated Content
                     </CardTitle>
                     {generatedContent && (
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm" onClick={handleRegenerate}>
+                      <div className="flex flex-wrap gap-2">
+                        <Button variant="outline" size="sm" onClick={handleRegenerate} className="flex-1 sm:flex-none">
                           <RefreshCw className="w-4 h-4 mr-2" />
-                          Regenerate
+                          <span className="hidden sm:inline">Regenerate</span>
+                          <span className="sm:hidden">Regen</span>
                         </Button>
-                        <Button variant="outline" size="sm" onClick={copyToClipboard}>
+                        <Button variant="outline" size="sm" onClick={copyToClipboard} className="flex-1 sm:flex-none">
                           <Copy className="w-4 h-4 mr-2" />
                           Copy
                         </Button>
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" className="flex-1 sm:flex-none">
                           <Download className="w-4 h-4 mr-2" />
-                          Export
+                          <span className="hidden sm:inline">Export</span>
+                          <span className="sm:hidden">Save</span>
                         </Button>
                       </div>
                     )}
@@ -374,12 +378,12 @@ const ContentGenerator = () => {
                 <CardContent>
                   {generatedContent ? (
                     <div className="space-y-4">
-                      <div className="bg-muted/50 p-4 rounded-lg">
+                      <div className="bg-muted/50 p-4 rounded-lg max-h-96 overflow-y-auto">
                         <pre className="whitespace-pre-wrap text-sm font-mono">
                           {generatedContent}
                         </pre>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-muted-foreground">
                         <span>Words: {generatedContent.split(' ').length}</span>
                         <span>Characters: {generatedContent.length}</span>
                         <span>Reading time: ~{Math.ceil(generatedContent.split(' ').length / 200)} min</span>
@@ -391,7 +395,7 @@ const ContentGenerator = () => {
                         <Wand2 className="w-8 h-8 text-muted-foreground" />
                       </div>
                       <h3 className="font-medium mb-2">Ready to generate content?</h3>
-                      <p className="text-muted-foreground text-sm">
+                      <p className="text-muted-foreground text-sm max-w-md mx-auto">
                         Configure your settings and click generate to create amazing content with AI.
                       </p>
                     </div>
@@ -406,7 +410,7 @@ const ContentGenerator = () => {
                     <CardTitle>Enhance Your Content</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                       <Button variant="outline" className="justify-start">
                         <Target className="w-4 h-4 mr-2" />
                         SEO Optimize
@@ -428,7 +432,7 @@ const ContentGenerator = () => {
         </TabsContent>
 
         <TabsContent value="templates" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {contentTypes.map((type) => (
               <Card key={type.id} className="border-0 shadow-card">
                 <CardContent className="p-4">
@@ -437,7 +441,7 @@ const ContentGenerator = () => {
                       <div className={`w-10 h-10 rounded-lg ${type.color} flex items-center justify-center`}>
                         <type.icon className="w-5 h-5 text-white" />
                       </div>
-                      <div>
+                      <div className="flex-1 min-w-0">
                         <h3 className="font-medium">{type.name}</h3>
                         <p className="text-sm text-muted-foreground">{type.description}</p>
                       </div>

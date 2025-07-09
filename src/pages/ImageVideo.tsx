@@ -158,17 +158,17 @@ const ImageVideo = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="image-generator">Image Generator</TabsTrigger>
-          <TabsTrigger value="video-creator">Video Creator</TabsTrigger>
-          <TabsTrigger value="gallery">My Gallery</TabsTrigger>
-          <TabsTrigger value="templates">Templates</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+          <TabsTrigger value="image-generator" className="text-xs sm:text-sm">Image Generator</TabsTrigger>
+          <TabsTrigger value="video-creator" className="text-xs sm:text-sm">Video Creator</TabsTrigger>
+          <TabsTrigger value="gallery" className="text-xs sm:text-sm">My Gallery</TabsTrigger>
+          <TabsTrigger value="templates" className="text-xs sm:text-sm">Templates</TabsTrigger>
         </TabsList>
 
         <TabsContent value="image-generator" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
             {/* Image Generation Controls */}
-            <Card className="lg:col-span-1 border-0 shadow-card">
+            <Card className="lg:col-span-4 border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Wand2 className="w-5 h-5" />
@@ -184,13 +184,14 @@ const ImageVideo = () => {
                     onChange={(e) => setImagePrompt(e.target.value)}
                     placeholder="A serene mountain landscape with a crystal clear lake reflecting the sunset sky..."
                     rows={4}
+                    className="mt-1"
                   />
                 </div>
 
                 <div>
                   <Label>Art Style</Label>
                   <Select value={selectedStyle.id} onValueChange={(value) => setSelectedStyle(imageStyles.find(s => s.id === value))}>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -209,7 +210,7 @@ const ImageVideo = () => {
                 <div>
                   <Label>Aspect Ratio</Label>
                   <Select value={aspectRatio} onValueChange={setAspectRatio}>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -261,7 +262,7 @@ const ImageVideo = () => {
             </Card>
 
             {/* Generated Image Preview */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-8">
               <Card className="border-0 shadow-card">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -279,10 +280,10 @@ const ImageVideo = () => {
                     </div>
                   ) : (
                     <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                      <div className="text-center">
-                        <ImageIcon className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-                        <h3 className="font-medium mb-2">Ready to create?</h3>
-                        <p className="text-muted-foreground text-sm">
+                      <div className="text-center max-w-md mx-auto px-4">
+                        <ImageIcon className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 text-muted-foreground" />
+                        <h3 className="font-medium mb-2 text-sm sm:text-base">Ready to create?</h3>
+                        <p className="text-muted-foreground text-xs sm:text-sm">
                           Enter a description and click generate to create amazing images with AI.
                         </p>
                       </div>
@@ -295,9 +296,9 @@ const ImageVideo = () => {
         </TabsContent>
 
         <TabsContent value="video-creator" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
             {/* Video Creation Controls */}
-            <Card className="lg:col-span-1 border-0 shadow-card">
+            <Card className="lg:col-span-4 border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Film className="w-5 h-5" />
@@ -308,7 +309,7 @@ const ImageVideo = () => {
                 <div>
                   <Label>Video Type</Label>
                   <Select value={selectedVideoType.id} onValueChange={(value) => setSelectedVideoType(videoTypes.find(t => t.id === value))}>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -334,13 +335,14 @@ const ImageVideo = () => {
                     onChange={(e) => setVideoScript(e.target.value)}
                     placeholder="Write your video script here. Include scene descriptions, narration, and any specific visual elements you want to include..."
                     rows={6}
+                    className="mt-1"
                   />
                 </div>
 
                 <div>
                   <Label>Video Quality</Label>
                   <Select>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1">
                       <SelectValue placeholder="Select quality" />
                     </SelectTrigger>
                     <SelectContent>
@@ -354,7 +356,7 @@ const ImageVideo = () => {
                 <div>
                   <Label>Background Music</Label>
                   <Select>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1">
                       <SelectValue placeholder="Choose music" />
                     </SelectTrigger>
                     <SelectContent>
@@ -374,7 +376,7 @@ const ImageVideo = () => {
             </Card>
 
             {/* Video Preview */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-8">
               <Card className="border-0 shadow-card">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -384,13 +386,13 @@ const ImageVideo = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="aspect-video bg-black rounded-lg flex items-center justify-center">
-                    <div className="text-center text-white">
-                      <Video className="w-16 h-16 mx-auto mb-4" />
-                      <h3 className="font-medium mb-2">Video Preview</h3>
-                      <p className="text-gray-300 text-sm">
+                    <div className="text-center text-white max-w-md mx-auto px-4">
+                      <Video className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4" />
+                      <h3 className="font-medium mb-2 text-sm sm:text-base">Video Preview</h3>
+                      <p className="text-gray-300 text-xs sm:text-sm mb-4">
                         Your generated video will appear here
                       </p>
-                      <Button variant="outline" className="mt-4">
+                      <Button size="sm" className="bg-white/10 hover:bg-white/20 border-white/20">
                         <Play className="w-4 h-4 mr-2" />
                         Play Preview
                       </Button>
@@ -403,37 +405,44 @@ const ImageVideo = () => {
         </TabsContent>
 
         <TabsContent value="gallery" className="space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h2 className="text-xl font-semibold">My Gallery</h2>
-              <p className="text-muted-foreground">Your generated images and videos</p>
+              <h2 className="text-lg sm:text-xl font-semibold">My Gallery</h2>
+              <p className="text-muted-foreground text-sm">Your generated images and videos</p>
             </div>
             <div className="flex gap-2">
               <Button
                 variant={viewMode === "grid" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("grid")}
+                className="flex-1 sm:flex-none"
               >
-                <Grid className="w-4 h-4" />
+                <Grid className="w-4 h-4 mr-2 sm:mr-0 sm:only:mr-0" />
+                <span className="sm:hidden">Grid</span>
               </Button>
               <Button
                 variant={viewMode === "list" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("list")}
+                className="flex-1 sm:flex-none"
               >
-                <List className="w-4 h-4" />
+                <List className="w-4 h-4 mr-2 sm:mr-0 sm:only:mr-0" />
+                <span className="sm:hidden">List</span>
               </Button>
             </div>
           </div>
 
           <Tabs defaultValue="images" className="space-y-4">
-            <TabsList>
-              <TabsTrigger value="images">Images ({generatedImages.length})</TabsTrigger>
-              <TabsTrigger value="videos">Videos ({videoProjects.length})</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="images" className="text-xs sm:text-sm">Images ({generatedImages.length})</TabsTrigger>
+              <TabsTrigger value="videos" className="text-xs sm:text-sm">Videos ({videoProjects.length})</TabsTrigger>
             </TabsList>
 
             <TabsContent value="images">
-              <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" : "space-y-4"}>
+              <div className={viewMode === "grid" 
+                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4" 
+                : "space-y-4"
+              }>
                 {generatedImages.map((image) => (
                   <Card key={image.id} className="border-0 shadow-card overflow-hidden">
                     <div className="aspect-video bg-muted">
@@ -443,15 +452,15 @@ const ImageVideo = () => {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <CardContent className="p-4">
+                    <CardContent className="p-3 sm:p-4">
                       <div className="space-y-3">
-                        <p className="text-sm line-clamp-2">{image.prompt}</p>
+                        <p className="text-xs sm:text-sm truncate" title={image.prompt}>{image.prompt}</p>
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
-                          <Badge variant="outline">{image.style}</Badge>
-                          <span>{image.createdAt}</span>
+                          <Badge>{image.style}</Badge>
+                          <span className="text-xs">{image.createdAt}</span>
                         </div>
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3 text-sm">
+                          <div className="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
                             <span className="flex items-center gap-1">
                               <Heart className="w-3 h-3" />
                               {image.likes}
@@ -462,14 +471,14 @@ const ImageVideo = () => {
                             </span>
                           </div>
                           <div className="flex gap-1">
-                            <Button variant="ghost" size="sm">
-                              <Download className="w-4 h-4" />
+                            <Button size="sm" className="h-6 w-6 p-0">
+                              <Download className="w-3 h-3" />
                             </Button>
-                            <Button variant="ghost" size="sm">
-                              <Share className="w-4 h-4" />
+                            <Button size="sm" className="h-6 w-6 p-0">
+                              <Share className="w-3 h-3" />
                             </Button>
-                            <Button variant="ghost" size="sm">
-                              <Trash2 className="w-4 h-4" />
+                            <Button size="sm" className="h-6 w-6 p-0">
+                              <Trash2 className="w-3 h-3" />
                             </Button>
                           </div>
                         </div>
@@ -481,7 +490,7 @@ const ImageVideo = () => {
             </TabsContent>
 
             <TabsContent value="videos">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
                 {videoProjects.map((video) => (
                   <Card key={video.id} className="border-0 shadow-card overflow-hidden">
                     <div className="relative aspect-video bg-muted">
@@ -491,36 +500,38 @@ const ImageVideo = () => {
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                        <Button variant="outline" size="sm" className="bg-white/90">
+                        <Button size="sm" className="bg-white/90 hover:bg-white text-black">
                           <Play className="w-4 h-4" />
                         </Button>
                       </div>
                       <div className="absolute bottom-2 right-2">
-                        <Badge className="bg-black/80 text-white">
+                        <Badge className="bg-black/80 text-white text-xs">
                           {video.duration}
                         </Badge>
                       </div>
                     </div>
-                    <CardContent className="p-4">
+                    <CardContent className="p-3 sm:p-4">
                       <div className="space-y-3">
-                        <h3 className="font-medium">{video.title}</h3>
+                        <h3 className="font-medium text-sm truncate" title={video.title}>{video.title}</h3>
                         <div className="flex items-center justify-between text-xs text-muted-foreground">
-                          <Badge variant={video.status === "completed" ? "default" : video.status === "rendering" ? "secondary" : "outline"}>
-                            {video.status}
-                          </Badge>
+                          <Badge>{video.type}</Badge>
                           <span>{video.createdAt}</span>
                         </div>
-                        <div className="flex gap-1">
-                          <Button variant="outline" size="sm" className="flex-1">
-                            <Edit className="w-3 h-3 mr-2" />
-                            Edit
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Download className="w-4 h-4" />
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            <Share className="w-4 h-4" />
-                          </Button>
+                        <div className="flex items-center justify-between">
+                          <Badge>
+                            {video.status}
+                          </Badge>
+                          <div className="flex gap-1">
+                            <Button size="sm" className="h-6 w-6 p-0">
+                              <Download className="w-3 h-3" />
+                            </Button>
+                            <Button size="sm" className="h-6 w-6 p-0">
+                              <Edit className="w-3 h-3" />
+                            </Button>
+                            <Button size="sm" className="h-6 w-6 p-0">
+                              <Trash2 className="w-3 h-3" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -532,25 +543,26 @@ const ImageVideo = () => {
         </TabsContent>
 
         <TabsContent value="templates" className="space-y-6">
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Templates & Presets</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {imageStyles.map((style) => (
-                <Card key={style.id} className="border-0 shadow-card cursor-pointer hover:shadow-lg transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg mb-3 flex items-center justify-center">
-                      <Palette className="w-8 h-8 text-muted-foreground" />
-                    </div>
-                    <h3 className="font-medium mb-1">{style.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">{style.description}</p>
-                    <Button variant="outline" size="sm" className="w-full">
-                      <Zap className="w-3 h-3 mr-2" />
-                      Use Template
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+            {imageStyles.map((style) => (
+              <Card key={style.id} className="border-0 shadow-card overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <div className="text-white text-center">
+                    <Palette className="w-8 h-8 mx-auto mb-2" />
+                    <p className="font-medium text-sm">{style.name}</p>
+                  </div>
+                </div>
+                <CardContent className="p-3 sm:p-4">
+                  <div className="space-y-2">
+                    <h3 className="font-medium text-sm">{style.name}</h3>
+                    <p className="text-xs text-muted-foreground">{style.description}</p>
+                    <Button className="w-full" size="sm">
+                      Use Style
                     </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </TabsContent>
       </Tabs>
