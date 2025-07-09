@@ -12,7 +12,7 @@ export function DashboardLayout() {
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
-    <div className="flex h-screen bg-dashboard-bg overflow-hidden">
+    <div className="flex min-h-screen bg-dashboard-bg">
       <Sidebar 
         collapsed={sidebarCollapsed} 
         onToggleCollapse={toggleSidebar}
@@ -21,7 +21,9 @@ export function DashboardLayout() {
       />
       <div className="flex flex-col flex-1 min-w-0">
         <TopNavbar onMobileMenuToggle={toggleMobileMenu} />
-        <Outlet />
+        <main className="flex-1 overflow-y-auto">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
