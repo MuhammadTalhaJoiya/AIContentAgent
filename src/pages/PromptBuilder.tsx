@@ -125,14 +125,14 @@ const PromptBuilder = () => {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="templates">Templates</TabsTrigger>
-          <TabsTrigger value="custom">Custom Builder</TabsTrigger>
-          <TabsTrigger value="saved">My Prompts</TabsTrigger>
+          <TabsTrigger value="templates" className="text-xs sm:text-sm">Templates</TabsTrigger>
+          <TabsTrigger value="custom" className="text-xs sm:text-sm">Custom Builder</TabsTrigger>
+          <TabsTrigger value="saved" className="text-xs sm:text-sm">My Prompts</TabsTrigger>
         </TabsList>
 
         <TabsContent value="templates" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <Card className="border-0 shadow-card">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
+            <Card className="lg:col-span-5 border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BookOpen className="w-5 h-5" />
@@ -140,11 +140,11 @@ const PromptBuilder = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {promptTemplates.map((template) => (
                     <div
                       key={template.id}
-                      className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                      className={`p-3 sm:p-4 rounded-lg border cursor-pointer transition-all ${
                         selectedTemplate.id === template.id
                           ? "border-primary bg-primary/5"
                           : "border-border hover:border-primary/50"
@@ -152,18 +152,18 @@ const PromptBuilder = () => {
                       onClick={() => setSelectedTemplate(template)}
                     >
                       <div className="flex items-start gap-3">
-                        <div className={`w-10 h-10 rounded-lg ${template.color} flex items-center justify-center`}>
-                          <template.icon className="w-5 h-5 text-white" />
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg ${template.color} flex items-center justify-center flex-shrink-0`}>
+                          <template.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                         </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-medium">{template.name}</h3>
-                            <Badge variant="secondary">{template.category}</Badge>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
+                            <h3 className="font-medium text-sm sm:text-base">{template.name}</h3>
+                            <Badge variant="outline" className="text-xs w-fit">{template.category}</Badge>
                           </div>
-                          <p className="text-sm text-muted-foreground">{template.description}</p>
-                          <div className="flex flex-wrap gap-1 mt-2">
+                          <p className="text-xs sm:text-sm text-muted-foreground mb-2">{template.description}</p>
+                          <div className="flex flex-wrap gap-1">
                             {template.variables.map((variable) => (
-                              <Badge key={variable} variant="outline" className="text-xs">
+                              <Badge key={variable} variant="outline" className="text-xs px-1 py-0">
                                 {variable}
                               </Badge>
                             ))}
@@ -176,7 +176,7 @@ const PromptBuilder = () => {
               </CardContent>
             </Card>
 
-            <div className="space-y-6">
+            <div className="lg:col-span-7 space-y-4 lg:space-y-6">
               <Card className="border-0 shadow-card">
                 <CardHeader>
                   <CardTitle>Configure Prompt</CardTitle>
@@ -187,7 +187,7 @@ const PromptBuilder = () => {
                     <Textarea
                       value={selectedTemplate.prompt}
                       readOnly
-                      className="mt-2 bg-muted"
+                      className="mt-2 bg-muted text-sm"
                       rows={4}
                     />
                   </div>
@@ -196,28 +196,30 @@ const PromptBuilder = () => {
 
                   <div className="space-y-4">
                     <Label className="text-sm font-medium">Variables</Label>
-                    {selectedTemplate.variables.map((variable) => (
-                      <div key={variable}>
-                        <Label htmlFor={variable} className="text-sm capitalize">
-                          {variable}
-                        </Label>
-                        <Input
-                          id={variable}
-                          placeholder={`Enter ${variable}...`}
-                          value={variables[variable] || ""}
-                          onChange={(e) => handleVariableChange(variable, e.target.value)}
-                          className="mt-1"
-                        />
-                      </div>
-                    ))}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {selectedTemplate.variables.map((variable) => (
+                        <div key={variable}>
+                          <Label htmlFor={variable} className="text-sm capitalize">
+                            {variable}
+                          </Label>
+                          <Input
+                            id={variable}
+                            placeholder={`Enter ${variable}...`}
+                            value={variables[variable] || ""}
+                            onChange={(e) => handleVariableChange(variable, e.target.value)}
+                            className="mt-1"
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <Button onClick={testPrompt} className="flex-1">
                       <Play className="w-4 h-4 mr-2" />
                       Test Prompt
                     </Button>
-                    <Button variant="outline">
+                    <Button variant="outline" className="flex-1 sm:flex-none">
                       <Save className="w-4 h-4 mr-2" />
                       Save
                     </Button>
@@ -231,7 +233,7 @@ const PromptBuilder = () => {
                     <CardTitle>Test Output</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="bg-muted p-4 rounded-lg">
+                    <div className="bg-muted p-4 rounded-lg max-h-64 overflow-y-auto">
                       <pre className="text-sm whitespace-pre-wrap">{testOutput}</pre>
                     </div>
                   </CardContent>
@@ -242,7 +244,7 @@ const PromptBuilder = () => {
         </TabsContent>
 
         <TabsContent value="custom" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             <Card className="border-0 shadow-card">
               <CardHeader>
                 <CardTitle>Create Custom Prompt</CardTitle>
@@ -255,6 +257,7 @@ const PromptBuilder = () => {
                     placeholder="My Custom Prompt"
                     value={promptName}
                     onChange={(e) => setPromptName(e.target.value)}
+                    className="mt-1"
                   />
                 </div>
 
@@ -265,7 +268,7 @@ const PromptBuilder = () => {
                     placeholder="Enter your custom prompt here. Use {variable} syntax for dynamic content..."
                     value={customPrompt}
                     onChange={(e) => setCustomPrompt(e.target.value)}
-                    rows={10}
+                    rows={8}
                     className="mt-2"
                   />
                   <p className="text-xs text-muted-foreground mt-1">
@@ -276,7 +279,7 @@ const PromptBuilder = () => {
                 <div>
                   <Label>Category</Label>
                   <Select>
-                    <SelectTrigger>
+                    <SelectTrigger className="mt-1">
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -290,12 +293,12 @@ const PromptBuilder = () => {
                   </Select>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <Button className="flex-1">
                     <Save className="w-4 h-4 mr-2" />
                     Save Prompt
                   </Button>
-                  <Button variant="outline">
+                  <Button variant="outline" className="flex-1 sm:flex-none">
                     <Play className="w-4 h-4 mr-2" />
                     Test
                   </Button>
@@ -325,17 +328,17 @@ const PromptBuilder = () => {
                   <div>
                     <h4 className="font-medium text-sm">Variable Examples</h4>
                     <div className="text-sm text-muted-foreground space-y-1 mt-2">
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline">{"{topic}"}</Badge>
-                        <span>Subject matter</span>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <Badge variant="outline" className="text-xs">{"{topic}"}</Badge>
+                        <span className="text-xs">Subject matter</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline">{"{tone}"}</Badge>
-                        <span>Writing style</span>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <Badge variant="outline" className="text-xs">{"{tone}"}</Badge>
+                        <span className="text-xs">Writing style</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline">{"{audience}"}</Badge>
-                        <span>Target readers</span>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <Badge variant="outline" className="text-xs">{"{audience}"}</Badge>
+                        <span className="text-xs">Target readers</span>
                       </div>
                     </div>
                   </div>
@@ -346,44 +349,44 @@ const PromptBuilder = () => {
         </TabsContent>
 
         <TabsContent value="saved" className="space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h2 className="text-xl font-semibold">My Saved Prompts</h2>
-              <p className="text-muted-foreground">Manage your custom prompts</p>
+              <h2 className="text-lg sm:text-xl font-semibold">My Saved Prompts</h2>
+              <p className="text-muted-foreground text-sm">Manage your custom prompts</p>
             </div>
-            <Button>
+            <Button className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               New Prompt
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {savedPrompts.map((prompt) => (
               <Card key={prompt.id} className="border-0 shadow-card">
                 <CardContent className="p-4">
                   <div className="space-y-3">
                     <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-medium">{prompt.name}</h3>
-                        <Badge variant="secondary" className="mt-1">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-medium text-sm sm:text-base truncate">{prompt.name}</h3>
+                        <Badge variant="outline" className="mt-1 text-xs">
                           {prompt.category}
                         </Badge>
                       </div>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="sm" className="p-1 h-auto">
                         <Copy className="w-4 h-4" />
                       </Button>
                     </div>
 
                     <div className="text-sm text-muted-foreground space-y-1">
-                      <div>Last used: {prompt.lastUsed}</div>
-                      <div>Used {prompt.uses} times</div>
+                      <div className="text-xs">Last used: {prompt.lastUsed}</div>
+                      <div className="text-xs">Used {prompt.uses} times</div>
                     </div>
 
                     <div className="flex gap-2">
-                      <Button variant="outline" size="sm" className="flex-1">
+                      <Button variant="outline" size="sm" className="flex-1 text-xs">
                         Edit
                       </Button>
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="sm" className="p-2 h-auto">
                         <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>

@@ -166,17 +166,17 @@ const SEOOptimizer = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="analyze">Content Analysis</TabsTrigger>
-          <TabsTrigger value="keywords">Keyword Research</TabsTrigger>
-          <TabsTrigger value="competitors">Competitor Analysis</TabsTrigger>
-          <TabsTrigger value="suggestions">Optimization Tips</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+          <TabsTrigger value="analyze" className="text-xs sm:text-sm">Content Analysis</TabsTrigger>
+          <TabsTrigger value="keywords" className="text-xs sm:text-sm">Keyword Research</TabsTrigger>
+          <TabsTrigger value="competitors" className="text-xs sm:text-sm">Competitor Analysis</TabsTrigger>
+          <TabsTrigger value="suggestions" className="text-xs sm:text-sm">Optimization Tips</TabsTrigger>
         </TabsList>
 
         <TabsContent value="analyze" className="space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
             {/* Input Section */}
-            <Card className="lg:col-span-1 border-0 shadow-card">
+            <Card className="lg:col-span-4 border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Search className="w-5 h-5" />
@@ -191,6 +191,7 @@ const SEOOptimizer = () => {
                     value={contentUrl}
                     onChange={(e) => setContentUrl(e.target.value)}
                     placeholder="https://example.com/your-content"
+                    className="mt-1"
                   />
                 </div>
 
@@ -201,6 +202,7 @@ const SEOOptimizer = () => {
                     value={targetKeyword}
                     onChange={(e) => setTargetKeyword(e.target.value)}
                     placeholder="react tutorial"
+                    className="mt-1"
                   />
                 </div>
 
@@ -212,6 +214,7 @@ const SEOOptimizer = () => {
                     onChange={(e) => setContentText(e.target.value)}
                     placeholder="Paste your content here for analysis..."
                     rows={8}
+                    className="mt-1"
                   />
                 </div>
 
@@ -243,11 +246,11 @@ const SEOOptimizer = () => {
             </Card>
 
             {/* Results Section */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-8 space-y-4 lg:space-y-6">
               {/* SEO Score Overview */}
               <Card className="border-0 shadow-card">
                 <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
+                  <CardTitle className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <span className="flex items-center gap-2">
                       <BarChart3 className="w-5 h-5" />
                       SEO Score Overview
@@ -267,13 +270,13 @@ const SEOOptimizer = () => {
                       <Progress value={seoScore} className="h-2" />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 text-center">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4 text-center">
                       <div className="p-3 bg-muted/50 rounded-lg">
-                        <div className="text-2xl font-bold text-green-600">Good</div>
+                        <div className="text-xl sm:text-2xl font-bold text-green-600">Good</div>
                         <div className="text-xs text-muted-foreground">Overall Rating</div>
                       </div>
                       <div className="p-3 bg-muted/50 rounded-lg">
-                        <div className="text-2xl font-bold">4/7</div>
+                        <div className="text-xl sm:text-2xl font-bold">4/7</div>
                         <div className="text-xs text-muted-foreground">Factors Optimized</div>
                       </div>
                     </div>
@@ -289,23 +292,23 @@ const SEOOptimizer = () => {
                 <CardContent className="space-y-6">
                   {/* Title Analysis */}
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                       <div className="flex items-center gap-2">
                         {getStatusIcon(analysisResults.title.status)}
-                        <span className="font-medium">Title Tag</span>
+                        <span className="font-medium text-sm sm:text-base">Title Tag</span>
                       </div>
                       <div className={`font-bold ${getScoreColor(analysisResults.title.score)}`}>
                         {analysisResults.title.score}/100
                       </div>
                     </div>
-                    <div className="bg-muted/50 p-3 rounded-lg text-sm">
+                    <div className="bg-muted/50 p-3 rounded-lg text-sm overflow-x-auto">
                       {analysisResults.title.current}
                     </div>
                     <div className="space-y-1">
                       {analysisResults.title.suggestions.map((suggestion, index) => (
                         <div key={index} className="text-xs text-muted-foreground flex items-start gap-2">
-                          <Lightbulb className="w-3 h-3 mt-0.5 text-yellow-500" />
-                          {suggestion}
+                          <Lightbulb className="w-3 h-3 mt-0.5 text-yellow-500 flex-shrink-0" />
+                          <span>{suggestion}</span>
                         </div>
                       ))}
                     </div>
@@ -315,23 +318,23 @@ const SEOOptimizer = () => {
 
                   {/* Meta Description */}
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                       <div className="flex items-center gap-2">
                         {getStatusIcon(analysisResults.description.status)}
-                        <span className="font-medium">Meta Description</span>
+                        <span className="font-medium text-sm sm:text-base">Meta Description</span>
                       </div>
                       <div className={`font-bold ${getScoreColor(analysisResults.description.score)}`}>
                         {analysisResults.description.score}/100
                       </div>
                     </div>
-                    <div className="bg-muted/50 p-3 rounded-lg text-sm">
+                    <div className="bg-muted/50 p-3 rounded-lg text-sm overflow-x-auto">
                       {analysisResults.description.current}
                     </div>
                     <div className="space-y-1">
                       {analysisResults.description.suggestions.map((suggestion, index) => (
                         <div key={index} className="text-xs text-muted-foreground flex items-start gap-2">
-                          <Lightbulb className="w-3 h-3 mt-0.5 text-yellow-500" />
-                          {suggestion}
+                          <Lightbulb className="w-3 h-3 mt-0.5 text-yellow-500 flex-shrink-0" />
+                          <span>{suggestion}</span>
                         </div>
                       ))}
                     </div>
@@ -341,24 +344,24 @@ const SEOOptimizer = () => {
 
                   {/* Keywords */}
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                       <div className="flex items-center gap-2">
                         {getStatusIcon(analysisResults.keywords.status)}
-                        <span className="font-medium">Keyword Optimization</span>
+                        <span className="font-medium text-sm sm:text-base">Keyword Optimization</span>
                       </div>
                       <div className={`font-bold ${getScoreColor(analysisResults.keywords.score)}`}>
                         {analysisResults.keywords.score}/100
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 text-sm">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm">
                       <span>Density: <strong>{analysisResults.keywords.density}%</strong></span>
                       <span>Target: <strong>{analysisResults.keywords.target}</strong></span>
                     </div>
                     <div className="space-y-1">
                       {analysisResults.keywords.suggestions.map((suggestion, index) => (
                         <div key={index} className="text-xs text-muted-foreground flex items-start gap-2">
-                          <Lightbulb className="w-3 h-3 mt-0.5 text-yellow-500" />
-                          {suggestion}
+                          <Lightbulb className="w-3 h-3 mt-0.5 text-yellow-500 flex-shrink-0" />
+                          <span>{suggestion}</span>
                         </div>
                       ))}
                     </div>
@@ -368,24 +371,24 @@ const SEOOptimizer = () => {
 
                   {/* Readability */}
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                       <div className="flex items-center gap-2">
                         {getStatusIcon(analysisResults.readability.status)}
-                        <span className="font-medium">Readability</span>
+                        <span className="font-medium text-sm sm:text-base">Readability</span>
                       </div>
                       <div className={`font-bold ${getScoreColor(analysisResults.readability.score)}`}>
                         {analysisResults.readability.score}/100
                       </div>
                     </div>
-                    <div className="flex items-center gap-4 text-sm">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm">
                       <span>Level: <strong>{analysisResults.readability.level}</strong></span>
                       <span>Avg Sentence: <strong>{analysisResults.readability.avgSentenceLength} words</strong></span>
                     </div>
                     <div className="space-y-1">
                       {analysisResults.readability.suggestions.map((suggestion, index) => (
                         <div key={index} className="text-xs text-muted-foreground flex items-start gap-2">
-                          <Lightbulb className="w-3 h-3 mt-0.5 text-yellow-500" />
-                          {suggestion}
+                          <Lightbulb className="w-3 h-3 mt-0.5 text-yellow-500 flex-shrink-0" />
+                          <span>{suggestion}</span>
                         </div>
                       ))}
                     </div>
@@ -409,12 +412,12 @@ const SEOOptimizer = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                   <Input 
                     placeholder="Enter seed keyword..."
                     className="flex-1"
                   />
-                  <Button>
+                  <Button className="sm:flex-shrink-0">
                     <Search className="w-4 h-4 mr-2" />
                     Research
                   </Button>
@@ -422,10 +425,10 @@ const SEOOptimizer = () => {
 
                 <div className="space-y-3">
                   {keywordSuggestions.map((keyword, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
-                      <div className="flex-1">
-                        <div className="font-medium">{keyword.keyword}</div>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
+                    <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 border rounded-lg hover:bg-muted/50 transition-colors gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-sm sm:text-base">{keyword.keyword}</div>
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground mt-1">
                           <span className="flex items-center gap-1">
                             <Users className="w-3 h-3" />
                             {keyword.volume.toLocaleString()}/mo
@@ -439,13 +442,13 @@ const SEOOptimizer = () => {
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-between sm:justify-end gap-3">
                         <div className="flex items-center gap-1">
                           {keyword.trend === "up" && <ArrowUp className="w-4 h-4 text-green-600" />}
                           {keyword.trend === "down" && <ArrowDown className="w-4 h-4 text-red-600" />}
                           {keyword.trend === "stable" && <span className="w-4 h-4 text-yellow-600">→</span>}
                         </div>
-                        <Button variant="outline" size="sm">
+                        <Button size="sm" className="text-xs">
                           Add to Content
                         </Button>
                       </div>
@@ -471,15 +474,15 @@ const SEOOptimizer = () => {
             <CardContent>
               <div className="space-y-4">
                 {competitors.map((competitor, index) => (
-                  <div key={index} className="p-4 border rounded-lg">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
+                  <div key={index} className="p-3 sm:p-4 border rounded-lg">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-2">
-                          <Badge variant="outline">#{competitor.position}</Badge>
-                          <span className="font-medium">{competitor.domain}</span>
+                          <Badge>#{competitor.position}</Badge>
+                          <span className="font-medium text-sm sm:text-base truncate">{competitor.domain}</span>
                         </div>
-                        <div className="text-sm mb-2">{competitor.title}</div>
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <div className="text-xs sm:text-sm mb-2 break-words">{competitor.title}</div>
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs text-muted-foreground">
                           <span className="flex items-center gap-1">
                             <Eye className="w-3 h-3" />
                             {competitor.traffic.toLocaleString()} monthly visits
@@ -490,7 +493,7 @@ const SEOOptimizer = () => {
                           </span>
                         </div>
                       </div>
-                      <Button variant="outline" size="sm">
+                      <Button size="sm" className="text-xs sm:flex-shrink-0">
                         Analyze
                       </Button>
                     </div>
@@ -505,34 +508,30 @@ const SEOOptimizer = () => {
           <Card className="border-0 shadow-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Zap className="w-5 h-5" />
-                Optimization Suggestions
+                <Lightbulb className="w-5 h-5" />
+                Content Optimization Suggestions
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                Actionable recommendations to improve your SEO
+                Actionable recommendations to improve your SEO performance
               </p>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {contentSuggestions.map((suggestion, index) => (
-                  <div key={index} className="p-4 border rounded-lg">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge 
-                            variant={suggestion.impact === "high" ? "default" : suggestion.impact === "medium" ? "secondary" : "outline"}
-                          >
-                            {suggestion.impact} impact
-                          </Badge>
-                          <span className="text-xs text-muted-foreground capitalize">{suggestion.type}</span>
-                        </div>
-                        <div className="font-medium mb-1">{suggestion.suggestion}</div>
-                        <div className="text-sm text-muted-foreground">{suggestion.reason}</div>
+                  <div key={index} className="p-3 sm:p-4 border rounded-lg flex flex-col sm:flex-row sm:items-start gap-3">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Badge>
+                          {suggestion.impact} impact
+                        </Badge>
+                        <span className="text-xs text-muted-foreground">{suggestion.type}</span>
                       </div>
-                      <Button variant="outline" size="sm">
-                        Apply
-                      </Button>
+                      <p className="font-medium text-sm sm:text-base mb-1">{suggestion.suggestion}</p>
+                      <p className="text-xs text-muted-foreground">{suggestion.reason}</p>
                     </div>
+                    <Button size="sm" className="text-xs sm:flex-shrink-0">
+                      Apply Fix
+                    </Button>
                   </div>
                 ))}
               </div>
