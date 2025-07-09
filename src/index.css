@@ -121,5 +121,28 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure proper scrolling on mobile devices */
+  html {
+    overflow-x: hidden;
+  }
+  
+  /* Fix webkit scrolling issues */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@layer utilities {
+  /* Utility classes for proper content spacing */
+  .page-container {
+    @apply w-full min-h-full;
+  }
+  
+  .scrollable-content {
+    @apply overflow-y-auto overflow-x-hidden;
+    -webkit-overflow-scrolling: touch;
   }
 }
